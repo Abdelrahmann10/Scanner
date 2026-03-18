@@ -27,14 +27,16 @@ namespace Scanner
                 ("SPECIALCHARACTER", @"[(){};,]")
             };
 
-            // دمج كل الأنماط في Regex واحد
+            // Building The "Super-Pattern"
             string fullPattern = "";
             foreach (var def in tokenDefinitions)
             {
                 fullPattern += $"(?<{def.Name}>{def.Pattern})|";
             }
+            // Cleaning The Tail
             fullPattern = fullPattern.TrimEnd('|');
 
+            //The Scanning Process
             Regex regex = new Regex(fullPattern);
             MatchCollection matches = regex.Matches(code);
 
